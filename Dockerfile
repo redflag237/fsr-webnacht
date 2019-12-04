@@ -11,7 +11,7 @@ RUN chmod o+rw /tmp/app
 #RUN chmod o+rw /home/app/
 RUN chmod o+rw /var/www/html
 
-USER nobody
+#USER nobody
 #RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/
 RUN git clone https://github.com/redflag237/fsr-webnacht.git /tmp/app/
 RUN cp /tmp/app/* /var/www/html/
@@ -37,7 +37,7 @@ RUN cp /tmp/app/* /var/www/html/
 #ADD mongodb-env.conf /etc/nginx/main.d/mongodb-env.conf
 
 # Clean-up
-USER root
+#USER root
 #RUN rm -rf /tmp/* /var/tmp/* /myapp/
 #RUN apt clean && 
 

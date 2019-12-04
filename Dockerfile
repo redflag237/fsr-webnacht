@@ -44,7 +44,9 @@ USER nobody
 # Add application
 WORKDIR /var/www/html
 #COPY --chown=nobody /home/app/ /var/www/html/
+RUN chmod o+rw /var/www/html
 RUN cp -R /home/app/ /var/www/html
+RUN chmod o-w /var/www/html
 RUN ls -lisah /var/www/html
 
 # Expose the port nginx is reachable on

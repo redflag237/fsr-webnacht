@@ -39,16 +39,18 @@ RUN rm -rf /tmp/* /var/tmp/* /myapp/
 #EXPOSE 80
 
 # Switch to use a non-root user from here on
-USER nobody
+#USER nobody
 
 # Add application
 WORKDIR /var/www/html
 #COPY --chown=nobody /home/app/ /var/www/html/
-RUN chmod o+rw /var/www/html
+#RUN chmod o+rw /var/www/html
 RUN cp -R /home/app/ /var/www/html
-RUN chmod o-w /var/www/html
+#RUN chmod o-w /var/www/html
 RUN ls -lisah /var/www/html
+RUN chown nobody:nobody /var/www/html/.*
 
+USER nobody
 # Expose the port nginx is reachable on
 EXPOSE 8080
 

@@ -13,16 +13,17 @@ RUN chmod o+rw /home/app/
 USER nobody
 RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/
 RUN cp -R /myapp/* /home/app/
-RUN chown app:app -R /home/app/
+#RUN chown app:app -R /home/app/
+#RUN cp -R /home/app/ /var/www/html
 
 # Setup Gems
 #RUN bundle install --gemfile=/home/app/Gemfile
 
 # Setup Nginx
-ENV HOME /root
-RUN rm -f /etc/service/nginx/down
-ADD myapp /etc/nginx/sites-enabled/
-RUN rm /etc/nginx/sites-enabled/default
+#ENV HOME /root
+#RUN rm -f /etc/service/nginx/down
+#ADD myapp /etc/nginx/sites-enabled/
+#RUN rm /etc/nginx/sites-enabled/default
 
 # Setup Database Configuration. Since we use both we'll add both here.
 # This is done to preserve Docker linking of environment variables within Nginx.
@@ -32,5 +33,22 @@ RUN rm /etc/nginx/sites-enabled/default
 # Clean-up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /myapp/
 
-CMD ["/sbin/my_init"]
-EXPOSE 80
+#CMD ["/sbin/my_init"]
+#EXPOSE 80
+
+# Switch to use a non-root user from here on
+USER nobody
+
+# Add application
+WORKDIR /var/www/html
+COPY --chown=nobody /home/app/ /var/www/html/
+RUN ls -lisah /var/www/html
+
+# Expose the port nginx is reachable on
+EXPOSE 8080
+
+# Let supervisord start nginx & php-fpm
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+# Configure a healthcheck to validate that everything is up&running
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping

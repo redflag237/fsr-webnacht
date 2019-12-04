@@ -5,9 +5,9 @@ MAINTAINER Jonas Plitt "jonas.plitt@rub.de"
 # Clone our private GitHub Repository
 USER root
 RUN apk add --no-cache git
+RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/
 
 USER nobody
-RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/
 RUN cp -R /myapp/* /home/app/
 RUN chown app:app -R /home/app/
 

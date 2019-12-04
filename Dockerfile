@@ -32,7 +32,8 @@ RUN cp -R /myapp/* /home/app/
 
 # Clean-up
 USER root
-RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /myapp/
+RUN rm -rf /tmp/* /var/tmp/* /myapp/
+#RUN apt clean && 
 
 #CMD ["/sbin/my_init"]
 #EXPOSE 80

@@ -31,7 +31,8 @@ RUN cp -R /myapp/* /home/app/
 #ADD mongodb-env.conf /etc/nginx/main.d/mongodb-env.conf
 
 # Clean-up
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /myapp/
+USER root
+RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /myapp/
 
 #CMD ["/sbin/my_init"]
 #EXPOSE 80

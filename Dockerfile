@@ -9,7 +9,7 @@ RUN apk add --no-cache git
 #RUN mkdir /home/app/
 #RUN chmod o+rw /myapp/
 #RUN chmod o+rw /home/app/
-RUN chown o+rw /var/www/html
+RUN chmod o+rw /var/www/html
 
 USER nobody
 #RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/

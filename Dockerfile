@@ -13,6 +13,7 @@ RUN chmod o+rw /home/app/
 USER nobody
 RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/
 RUN cp -R /myapp/* /home/app/
+RUN ls -lisah /home/app/
 #RUN chown app:app -R /home/app/
 #RUN cp -R /home/app/ /var/www/html
 

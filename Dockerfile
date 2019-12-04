@@ -1,5 +1,5 @@
 # Let's use the official Passenger container.
-FROM phusion/passenger-ruby19:latest
+FROM trafex/alpine-nginx-php7
 MAINTAINER Jonas Plitt "jonas.plitt@rub.de"
 
 # Clone our private GitHub Repository
@@ -8,7 +8,7 @@ RUN cp -R /myapp/* /home/app/
 RUN chown app:app -R /home/app/
 
 # Setup Gems
-RUN bundle install --gemfile=/home/app/Gemfile
+#RUN bundle install --gemfile=/home/app/Gemfile
 
 # Setup Nginx
 ENV HOME /root
@@ -18,8 +18,8 @@ RUN rm /etc/nginx/sites-enabled/default
 
 # Setup Database Configuration. Since we use both we'll add both here.
 # This is done to preserve Docker linking of environment variables within Nginx.
-ADD postgres-env.conf /etc/nginx/main.d/postgres-env.conf
-ADD mongodb-env.conf /etc/nginx/main.d/mongodb-env.conf
+#ADD postgres-env.conf /etc/nginx/main.d/postgres-env.conf
+#ADD mongodb-env.conf /etc/nginx/main.d/mongodb-env.conf
 
 # Clean-up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /myapp/

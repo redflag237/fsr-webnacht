@@ -6,14 +6,15 @@ MAINTAINER Jonas Plitt "jonas.plitt@rub.de"
 USER root
 RUN apk add --no-cache git
 #RUN mkdir /myapp/
-#RUN mkdir /home/app/
-#RUN chmod o+rw /myapp/
+RUN mkdir /tmp/app/
+RUN chmod o+rw /tmp/app
 #RUN chmod o+rw /home/app/
 RUN chmod o+rw /var/www/html
 
 USER nobody
 #RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/
-RUN git clone https://github.com/redflag237/fsr-webnacht.git /var/www/html/
+RUN git clone https://github.com/redflag237/fsr-webnacht.git /tmp/app/
+RUN cp /tmp/app/* /var/www/html/
 
 #RUN ls -lisah /myapp/
 #RUN cp -R /myapp/* /home/app/

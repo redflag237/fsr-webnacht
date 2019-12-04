@@ -46,9 +46,9 @@ RUN rm -rf /tmp/* /var/tmp/* /myapp/
 WORKDIR /var/www/html
 #COPY --chown=nobody /home/app/ /var/www/html/
 #RUN chmod o+rw /var/www/html
-RUN cp -R /home/app/ /var/www/html
+RUN cp -R /home/app/ /var/www/html/
 #RUN chmod o-w /var/www/html
-RUN ls -lisah /var/www/html
+RUN ls -lisah /var/www/html/
 RUN chown nobody:nobody /var/www/html/.*
 
 USER nobody

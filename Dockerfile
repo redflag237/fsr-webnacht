@@ -5,16 +5,19 @@ MAINTAINER Jonas Plitt "jonas.plitt@rub.de"
 # Clone our private GitHub Repository
 USER root
 RUN apk add --no-cache git
-RUN mkdir /myapp/
-RUN mkdir /home/app/
-RUN chmod o+rw /myapp/
-RUN chmod o+rw /home/app/
+#RUN mkdir /myapp/
+#RUN mkdir /home/app/
+#RUN chmod o+rw /myapp/
+#RUN chmod o+rw /home/app/
+RUN chown o+rw /var/www/html
 
 USER nobody
-RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/
-RUN ls -lisah /myapp/
-RUN cp -R /myapp/* /home/app/
-RUN ls -lisah /home/app/
+#RUN git clone https://github.com/redflag237/fsr-webnacht.git /myapp/
+RUN git clone https://github.com/redflag237/fsr-webnacht.git /var/www/html/
+
+#RUN ls -lisah /myapp/
+#RUN cp -R /myapp/* /home/app/
+#RUN ls -lisah /home/app/
 #RUN chown app:app -R /home/app/
 #RUN cp -R /home/app/ /var/www/html
 
@@ -34,7 +37,7 @@ RUN ls -lisah /home/app/
 
 # Clean-up
 USER root
-RUN rm -rf /tmp/* /var/tmp/* /myapp/
+#RUN rm -rf /tmp/* /var/tmp/* /myapp/
 #RUN apt clean && 
 
 #CMD ["/sbin/my_init"]
@@ -47,7 +50,7 @@ RUN rm -rf /tmp/* /var/tmp/* /myapp/
 WORKDIR /var/www/html
 #COPY --chown=nobody /home/app/ /var/www/html/
 #RUN chmod o+rw /var/www/html
-RUN cp -R /home/app/ /var/www/html/
+#RUN cp -R /home/app/ /var/www/html/
 #RUN chmod o-w /var/www/html
 RUN ls -lisah /var/www/html/
 RUN chown nobody:nobody /var/www/html/.*
